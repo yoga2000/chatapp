@@ -22,6 +22,22 @@ const Chat = ({ room, setRoom }) => {
   const messagesRef = collection(db, "messages");
   const messagesEndRef = useRef(null);
   const navigate = useNavigate();
+  // Function to get room information from localStorage on component mount
+  useEffect(() => {
+    const storedRoom = localStorage.getItem("chatAppRoom");
+    if (storedRoom) {
+      setRoom(storedRoom);
+    }
+  }, []);
+
+  
+
+  // Function to save room information to localStorage whenever it changes
+  useEffect(() => {
+    if (room) {
+      localStorage.setItem("chatAppRoom", room);
+    }
+  }, [room]);
 
   useEffect(() => {
     const queryMessage = query(
